@@ -16,31 +16,31 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'npm test -- --watchAll=false'
+                bat 'npm test -- --watchAll=false'
             }
         }
 
         stage('Build React App') {
             steps {
-                sh 'npm run build'
+                bat 'npm run build'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t $IMAGE_NAME ."
+                bat "docker build -t $IMAGE_NAME ."
             }
         }
 
         stage('Run Docker Container') {
             steps {
-                sh "docker run -d -p 3000:80 $IMAGE_NAME"
+                bat "docker run -d -p 3000:80 $IMAGE_NAME"
             }
         }
     }
