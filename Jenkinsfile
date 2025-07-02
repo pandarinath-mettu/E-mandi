@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/pandarinath-mettu/E-mandi.git' // REPLACE with your repo
+                git branch: 'main', url: 'https://github.com/pandarinath-mettu/E-mandi.git' // REPLACE with your repo
             }
         }
 
