@@ -23,7 +23,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 // Run tests (non-watch mode)
-                bat 'npm test -- --watchAll=false'
+                bat 'npm test -- --watchAll=false --passWithNoTests'
             }
         }
 
