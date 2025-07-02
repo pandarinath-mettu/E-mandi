@@ -1,5 +1,3 @@
-// Jenkinsfile
-
 pipeline {
     agent any
 
@@ -10,37 +8,43 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/pandarinath-mettu/E-mandi.git' // REPLACE with your repo
+                // Cloning from GitHub main branch
+                git branch: 'main', url: 'https://github.com/pandarinath-mettu/E-mandi.git'
             }
         }
 
         stage('Install Dependencies') {
             steps {
+                // Install npm packages (React app)
                 bat 'npm install'
             }
         }
 
         stage('Run Tests') {
             steps {
+                // Run tests (non-watch mode)
                 bat 'npm test -- --watchAll=false'
             }
         }
 
         stage('Build React App') {
             steps {
+                // Build the React application
                 bat 'npm run build'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                bat "docker build -t $IMAGE_NAME ."
+                // Build the Docker image using the Dockerfile
+                bat "docker build -t %IMAGE_NAME% ."
             }
         }
 
         stage('Run Docker Container') {
             steps {
-                bat "docker run -d -p 3000:80 $IMAGE_NAME"
+                // Run the Docker container and map port 3000 to 80
+                bat "docker run -d -p 3000:80 %IMAGE_NAME%"
             }
         }
     }
